@@ -1,5 +1,8 @@
+import {cart} from '../data/cart.js';
+import {products} from '../data/products.js';
+
 let productHTML = '';
-products.forEach((product) => {
+products.forEach(product => {
   productHTML += `<div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
@@ -19,7 +22,7 @@ products.forEach((product) => {
           </div>
 
           <div class="product-price">
-            $${(product.priceCents / 100).toFixed(2)}
+            $${(product.priceCents / 100).toFixed(2)} 
           </div>
 
           <div class="product-quantity-container">
@@ -39,13 +42,13 @@ products.forEach((product) => {
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-added-to-cart">
             <img src="images/icons/checkmark.png">
             Added
           </div>
 
           <button class="add-to-cart-button button-primary js-add-to-cart" 
-          Data-product-id = "${product.id}"
+           Data-product-id = "${product.id}"
            Data-product-image = "${product.image}"
            Data-product-name = "${product.name}"
            Data-product-price-cents = "${(product.priceCents / 100).toFixed(2)}"
@@ -97,8 +100,17 @@ document.querySelectorAll('.js-add-to-cart').forEach(button => {
     cart.forEach(item => {
       cartQuantity += item.quantity;
     });
-
+  
+    
     document.querySelector('.cart-quantity').innerHTML = cartQuantity;
+
+    let parent = button.closest('.product-container');
+    parent.querySelector('.js-added-to-cart').style.opacity = 1;
+
+    setTimeout(() => {
+      parent.querySelector('.js-added-to-cart').style.opacity = 0;
+    },3000);
+
 
 console.log(cart);
   });
