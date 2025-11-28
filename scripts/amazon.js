@@ -83,7 +83,7 @@ document.querySelectorAll('.js-add-to-cart').forEach(button => {
     console.log(productQuantity);
 
   
-    addToCart(productId);
+    addToCart(productId,productQuantity);
 
     updateCartQuantity();
     addedToCart(button);

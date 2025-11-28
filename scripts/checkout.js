@@ -1,6 +1,12 @@
-import {cart} from '../data/cart.js';
+import {addToCart, cart, saveToStorage} from '../data/cart.js';
 import {products} from '../data/products.js';
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 
+let today = dayjs();
+console.log(today);
+let dayAfterSevenDays = today.add(7, 'days');
+console.log(dayAfterSevenDays);
+console.log(dayAfterSevenDays.format('dddd, MMMM D'));
 
 function renderCart(){
 let cartItemHTML = '';
@@ -107,9 +113,9 @@ document.querySelectorAll('.js-delete-quantity')
       cart.forEach((cartItem,index) => {
           if(productId === cartItem.productId){
             cart.splice(index,1);
-            console.log(cart);
           }
       });
+      saveToStorage();
       renderCart();
     });
   });
