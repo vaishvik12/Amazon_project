@@ -4,12 +4,6 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOptions} from '../data/deliveryOptions.js';
 import { convertPrice } from '../Modules/convertPrice.js';
 
-// let today = dayjs();
-// console.log(today);
-// let dayAfterSevenDays = today.add(7, 'days');
-// console.log(dayAfterSevenDays);
-// console.log(dayAfterSevenDays.format('dddd, MMMM D'));
-
 function renderCart(){
 let cartItemHTML = '';
 cart.forEach(cartItem => {
@@ -29,10 +23,14 @@ cart.forEach(cartItem => {
       deliveryOption = option;
     }
   })
+    const today = dayjs();
+  const deliveryDate = today.add(deliveryOption.deliveryTime,'days');
+  const deliveryDateFormat = deliveryDate.format('dddd, MMMM D');
+
 
 cartItemHTML += ` <div class="cart-item-container js-cart-item-container">
   <div class="delivery-date">
-    Delivery date: Tuesday, June 21
+    Delivery date: ${deliveryDateFormat}
   </div>
 
   <div class="cart-item-details-grid">
