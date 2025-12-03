@@ -34,7 +34,8 @@ export function addToCart(productId,productQuantity){
       cart.push({
       productId,
       quantity : productQuantity,
-      deliveryOption : 1
+      // default delivery option
+      deliveryOptionId : 1
     });
     }
     saveToStorage();
