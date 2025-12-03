@@ -40,3 +40,22 @@ export function addToCart(productId,productQuantity){
     }
     saveToStorage();
 };
+
+
+export function updateDeliveryOption(productId, deliveryOptionId){
+  let matchingItem;
+  cart.forEach(item => {
+    if(item.productId === productId){
+      matchingItem = item;
+    };
+  });
+
+  if(!matchingItem){
+  return;  
+  }
+
+  matchingItem.deliveryOptionId = Number(deliveryOptionId);
+
+  saveToStorage();
+
+}
