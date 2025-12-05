@@ -1,14 +1,17 @@
 import {addToCart, cart, saveToStorage, updateDeliveryOption} from '../data/cart.js';
-import {products} from '../data/products.js';
+import {products, getProduct} from '../data/products.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import {deliveryOptions} from '../data/deliveryOptions.js';
+import {deliveryOptions, findDeliveryOption} from '../data/deliveryOptions.js';
 import { convertPrice } from '../Modules/convertPrice.js';
+import { renderPaymentSummary } from './paymentSummary.js'; 
 
 export function renderCart(){
 let cartItemHTML = '';
 cart.forEach(cartItem => {
 
-  let matchingItem;
+
+  let productId = cartItem.productId;
+  let matchingItem = getProduct(productId);
 
   products.forEach(product => {
     if(product.id === cartItem.productId){
@@ -16,10 +19,7 @@ cart.forEach(cartItem => {
     }
   });
 
-  // find matching delivery option for this cart item; fall back to first option
-  let deliveryOption = deliveryOptions.find(
-    option => option.id === cartItem.deliveryOptionId
-  ) || deliveryOptions[0];
+  let deliveryOption = findDeliveryOption(cartItem);
 
   const today = dayjs();
   const deliveryDate = today.add(deliveryOption.deliveryTime,'days');
@@ -71,6 +71,8 @@ document.querySelector('.js-order-summary').innerHTML = cartItemHTML;
 addDeleteEventListner();
 addEventListnerToRadioButtons()
 udpateCheckoutItem();
+renderPaymentSummary();
+
 };
 
 
@@ -140,4 +142,3 @@ function addEventListnerToRadioButtons(){
   })
 }
 
-// renderCart();

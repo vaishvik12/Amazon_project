@@ -11,3 +11,9 @@ export let deliveryOptions = [{
   deliveryTime : 1,
   priceCents : 999
 }];
+
+export function findDeliveryOption(cartItem){
+  return deliveryOptions.find(
+    option => option.id === cartItem.deliveryOptionId
+  ) || deliveryOptions[0];
+}
